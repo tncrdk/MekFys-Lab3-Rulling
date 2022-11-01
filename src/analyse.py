@@ -1,8 +1,39 @@
+from dataclasses import dataclass
 from typing import Callable, Iterator
 import numpy as np
 import matplotlib.pyplot as plt
 import Crank_Nicholson_method as CN
 from pathlib import Path
+
+
+@dataclass
+class Constants:
+    R = 46
+    cylinders = {
+        "metall hul": {
+            "diameter": 0.424,
+            "d_diamater": 0.001,
+            "mass": 0.255,
+            "d_masse": 0.0005,
+        },
+        "plast massiv": {
+            "diameter": 0.735,
+            "d_diameter": 0.001,
+            "mass": 0.44,
+            "d_masse": 0.00052,
+        },
+        "metall massiv": {
+            "diameter": 0.445,
+            "d_diameter": 0.001,
+            "mass": 1.097,
+            "d_masse": 0.0005,
+        },
+    }
+    L = {
+        "metall hul": R - cylinders["metall hul"]["diameter"] / 2,
+        "plast massiv": R - cylinders["plast massiv"]["diameter"] / 2,
+        "metall massiv": R - cylinders["metall massiv"]["diameter"] / 2,
+    }
 
 
 def main():
@@ -31,7 +62,7 @@ def read_data(filepath: Path) -> tuple[np.ndarray, np.ndarray]:
 
 
 def plot_results(
-    filename: str,
+    filename: Path,
     x_values_list: list[np.ndarray],
     y_values_list: list[np.ndarray],
     labels: list[str],
@@ -86,7 +117,7 @@ def step_euler(
     beta: float = 0.0,
 ) -> tuple[float, float]:
     new_phi = phi + phi_d1 * dt
-    new_phi_d1 = phi_d1 + phi_d2(phi, phi_d1, w0, delta, beta, phi_R, gamma)
+    new_phi_d1 = phi_d1 + phi_d2(phi, phi_d1, w0, delta, beta, phi_R, gamma) * dt
     return new_phi, new_phi_d1
 
 
