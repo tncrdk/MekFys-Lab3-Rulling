@@ -1,13 +1,33 @@
-from typing import Callable
+from typing import Callable, Iterator
 import numpy as np
 import matplotlib.pyplot as plt
-import src.Crank_Nicholson_method as CN
+import Crank_Nicholson_method as CN
+from pathlib import Path
 
 
-def read_data(filename: str) -> tuple[np.ndarray]:
-    with open(filename, "r") as f:
-        pass
-        # TODO Format data
+def main():
+    file_paths = get_filepaths()
+    return read_data(next(file_paths))
+
+
+def get_filepaths() -> Iterator[Path]:
+    workspace_root = Path(__file__).parent.parent
+    data_files_folder = workspace_root / "data"
+    file_paths = Path(data_files_folder).glob("*.txt")
+    return file_paths
+
+
+def read_data(filepath: Path) -> tuple[np.ndarray, np.ndarray]:
+    times: list[int] = []
+    x_values: list[int] = []
+    with open(filepath, "r") as f:
+        f.readline()
+        f.readline()
+        for line in f.readline():
+            line_list = line.split()
+            times.append(int(line_list[0]))
+            x_values.append(int(line_list[1]))
+        return np.array(times), np.array(x_values)
 
 
 def plot_results(
@@ -100,4 +120,4 @@ def ODE_solver(
 
 
 if __name__ == "__main__":
-    pass
+    print(main())
