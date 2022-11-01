@@ -1,7 +1,7 @@
 from typing import Callable
 import numpy as np
 import matplotlib.pyplot as plt
-import Crank_Nicholson_method as CN
+import src.Crank_Nicholson_method as CN
 
 
 def read_data(filename: str) -> tuple[np.ndarray]:
