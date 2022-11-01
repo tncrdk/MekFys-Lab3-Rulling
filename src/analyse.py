@@ -47,11 +47,6 @@ class Constants:
     ]
 
 
-def main():
-    file_paths = get_filepaths()
-    return read_data(next(file_paths))
-
-
 def get_filepaths() -> Iterator[Path]:
     workspace_root = Path(__file__).parent.parent
     data_files_folder = workspace_root / "data"
@@ -163,6 +158,11 @@ def ODE_solver(
         )
 
     return times, phi_values, phi_d1_values
+
+
+def main():
+    file_paths = get_filepaths()
+    return read_data(next(file_paths))
 
 
 if __name__ == "__main__":
