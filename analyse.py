@@ -65,7 +65,9 @@ def step_euler(
     delta: float = 0.0,
     beta: float = 0.0,
 ) -> tuple[float, float]:
-    
+    new_phi = phi + phi_d1*dt
+    new_phi_d1 = phi_d1 + phi_d2(phi, phi_d1, w0, delta, beta, phi_R, gamma)
+    return new_phi, new_phi_d1
 
 
 def ODE_solver(
@@ -73,7 +75,7 @@ def ODE_solver(
     t_0: float,
     t_end: float,
     phi_0: float,
-    phi_dot_0: float,
+    phi_d1_0: float,
     w0: float,
     gamma: float = 1,
     phiR: float = 0.0,
@@ -81,7 +83,11 @@ def ODE_solver(
     beta: float = 0.0,
     step_func: Callable = step_euler,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    pass
+    num_datapoints = int((t_end-t_0)/dt)
+    times = np.linspace(t_0, t_end, num_datapoints)
+    phi_values = np.zeros(num_datapoints)
+    phi_d1_values = np.zeros(num_datapoints)
+
 
 
 if __name__ == "__main__":
