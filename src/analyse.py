@@ -18,15 +18,15 @@ def get_filepaths() -> Iterator[Path]:
 
 
 def read_data(filepath: Path) -> tuple[np.ndarray, np.ndarray]:
-    times: list[int] = []
-    x_values: list[int] = []
+    times: list[float] = []
+    x_values: list[float] = []
     with open(filepath, "r") as f:
         f.readline()
         f.readline()
-        for line in f.readline():
+        for line in f.readlines():
             line_list = line.split()
-            times.append(int(line_list[0]))
-            x_values.append(int(line_list[1]))
+            times.append(float(line_list[0]))
+            x_values.append(float(line_list[1]))
         return np.array(times), np.array(x_values)
 
 
