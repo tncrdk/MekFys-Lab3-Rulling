@@ -1,39 +1,50 @@
 from dataclasses import dataclass
 from typing import Callable, Iterator
+from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 import Crank_Nicholson_method as CN
-from pathlib import Path
+
+
+@dataclass
+class Cylinder:
+    name: str
+    diameter: float
+    mass: float
+    d_diameter: float
+    d_mass: float
+
+    def __post_init__(self):
+        self.L = Constants.R - self.diameter / 2
 
 
 @dataclass
 class Constants:
-    R = 46
-    cylinders = {
-        "metall hul": {
-            "diameter": 0.424,
-            "d_diamater": 0.001,
-            "mass": 0.255,
-            "d_masse": 0.0005,
-        },
-        "plast massiv": {
-            "diameter": 0.735,
-            "d_diameter": 0.001,
-            "mass": 0.44,
-            "d_masse": 0.00052,
-        },
-        "metall massiv": {
-            "diameter": 0.445,
-            "d_diameter": 0.001,
-            "mass": 1.097,
-            "d_masse": 0.0005,
-        },
-    }
-    L = {
-        "metall hul": R - cylinders["metall hul"]["diameter"] / 2,
-        "plast massiv": R - cylinders["plast massiv"]["diameter"] / 2,
-        "metall massiv": R - cylinders["metall massiv"]["diameter"] / 2,
-    }
+    R: float = 46
+    dR: float = 0.1
+    cylinders: list[Cylinder] = [
+        Cylinder(
+            name="metall hul",
+            diameter=0.424,
+            mass=0.255,
+            d_diameter=0.001,
+            d_mass=0.0005,
+        ),
+        Cylinder(
+            name="plast massiv",
+            diameter=0.735,
+            mass=0.44,
+            d_diameter=0.001,
+            d_mass=0.0005,
+        ),
+        Cylinder(
+            name="metall massiv",
+            diameter=0.445,
+            mass=1.097,
+            d_diameter=0.001,
+            d_mass=0.0005,
+        ),
+    ]
 
 
 def main():
@@ -44,8 +55,8 @@ def main():
 def get_filepaths() -> Iterator[Path]:
     workspace_root = Path(__file__).parent.parent
     data_files_folder = workspace_root / "data"
-    file_paths = Path(data_files_folder).glob("*.txt")
-    return file_paths
+    data_file_paths = Path(data_files_folder).glob("*.txt")
+    return data_file_paths
 
 
 def read_data(filepath: Path) -> tuple[np.ndarray, np.ndarray]:
@@ -59,6 +70,10 @@ def read_data(filepath: Path) -> tuple[np.ndarray, np.ndarray]:
             times.append(float(line_list[0]))
             x_values.append(float(line_list[1]))
         return np.array(times), np.array(x_values)
+
+
+def transform_x_to_phi(x_values: np.ndarray, cylinder: Cylinder) -> np.ndarray:
+    return np.arcsin(x_values / cylinder.L)
 
 
 def plot_results(
