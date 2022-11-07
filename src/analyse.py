@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 def get_filepaths(is_numerical: bool) -> Generator[Path, None, None]:
     workspace_root = Path(__file__).parent.parent
     if is_numerical:
-        data_files_folder = workspace_root / "data" / "Numerical"
+        data_files_folder = workspace_root / "Data" / "Numerical"
     else:
-        data_files_folder = workspace_root / "data" / "Experimental"
+        data_files_folder = workspace_root / "Data" / "Experimental"
     data_file_paths = Path(data_files_folder).glob("*.txt")
     return data_file_paths
 
