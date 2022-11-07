@@ -15,6 +15,7 @@ class Cylinder:
     d_diameter: float
     d_mass: float
     slope_radius: float
+    # TODO Legge til phi_0
 
     def __post_init__(self):
         self.L = self.slope_radius - self.diameter / 2
@@ -72,6 +73,18 @@ def read_data(filepath: Path) -> tuple[np.ndarray, np.ndarray]:
             times.append(float(line_list[0]))
             x_values.append(float(line_list[1]))
         return np.array(times), np.array(x_values) * 100
+
+
+def save_numerical_results(
+    filepath: Path, data: tuple[np.ndarray, np.ndarray, np.ndarray]
+):
+    times, phi_values, phi_d1_values = data
+    with open(filepath, "w") as file:
+        file.write("times phi_values phi_d1_values")
+
+    with open(filepath, "a") as file:
+        for t, p, p_d1 in zip(times, phi_values, phi_d1_values):
+            file.write(f"{t} {p} {p_d1}")
 
 
 def transform_x_to_phi(x_values: np.ndarray, cylinder: Cylinder) -> np.ndarray:
@@ -168,7 +181,7 @@ def ODE_solver(
     return times, phi_values, phi_d1_values
 
 
-def main():
+def analyze_experimental_data():
     file_paths = get_filepaths()
     for path, cylinder in zip(file_paths, CYLINDERS):
         times, x_values = read_data(path)
@@ -184,5 +197,23 @@ def main():
         )
 
 
+def numerical_data_generation():
+    STEP_FUNC = step_euler
+    dt = 0.1
+    t_0: float = 0
+    t_end: float = 100
+    for cylinder in CYLINDERS:
+        phi_0: float  # TODO Finn ut phi_0, og w0
+        phi_d1_0: float = 0
+        w0: float
+        data = ODE_solver(dt, t_0, t_end, phi_0, phi_d1_0, w0, step_func=STEP_FUNC)
+        data_path = (
+            Path(__file__).parent.parent
+            / "Data"
+            / f"{cylinder.name}-numerical-data.txt"
+        )
+        save_numerical_results(data_path, data)
+
+
 if __name__ == "__main__":
-    main()
+    analyze_experimental_data()
