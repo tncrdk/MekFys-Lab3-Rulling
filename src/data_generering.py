@@ -10,11 +10,11 @@ def save_numerical_results(
 ):
     times, phi_values, phi_d1_values = data
     with open(filepath, "w") as file:
-        file.write("times phi_values phi_d1_values")
+        file.write("times phi_values phi_d1_values\n")
 
     with open(filepath, "a") as file:
         for t, p, p_d1 in zip(times, phi_values, phi_d1_values):
-            file.write(f"{t} {p} {p_d1}")
+            file.write(f"{t} {p} {p_d1}\n")
 
 
 def phi_d2(
