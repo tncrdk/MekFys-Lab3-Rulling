@@ -1,12 +1,12 @@
 from __future__ import annotations
-from typing import Iterator
+from typing import Generator
 from pathlib import Path
 from constants import Cylinder, CYLINDERS
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-def get_filepaths() -> Iterator[Path]:
+def get_filepaths() -> Generator[Path, None, None]:
     workspace_root = Path(__file__).parent.parent
     data_files_folder = workspace_root / "data"
     data_file_paths = Path(data_files_folder).glob("*.txt")
