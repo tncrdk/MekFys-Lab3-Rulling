@@ -1,3 +1,4 @@
+from __future__ import annotations
 from dataclasses import dataclass
 from typing import Callable, Iterator
 from pathlib import Path
@@ -13,38 +14,44 @@ class Cylinder:
     mass: float
     d_diameter: float
     d_mass: float
+    slope_radius: float
 
     def __post_init__(self):
-        self.L = Constants.R - self.diameter / 2
+        self.L = self.slope_radius - self.diameter / 2
 
 
 @dataclass
 class Constants:
     R: float = 46
     dR: float = 0.1
-    cylinders: list[Cylinder] = [
-        Cylinder(
-            name="metall hul",
-            diameter=0.424,
-            mass=0.255,
-            d_diameter=0.001,
-            d_mass=0.0005,
-        ),
-        Cylinder(
-            name="plast massiv",
-            diameter=0.735,
-            mass=0.44,
-            d_diameter=0.001,
-            d_mass=0.0005,
-        ),
-        Cylinder(
-            name="metall massiv",
-            diameter=0.445,
-            mass=1.097,
-            d_diameter=0.001,
-            d_mass=0.0005,
-        ),
-    ]
+
+
+CYLINDERS: list[Cylinder] = [
+    Cylinder(
+        name="metall hul",
+        diameter=0.424,
+        mass=0.255,
+        d_diameter=0.001,
+        d_mass=0.0005,
+        slope_radius=Constants.R,
+    ),
+    Cylinder(
+        name="plast massiv",
+        diameter=0.735,
+        mass=0.44,
+        d_diameter=0.001,
+        d_mass=0.0005,
+        slope_radius=Constants.R,
+    ),
+    Cylinder(
+        name="metall massiv",
+        diameter=0.445,
+        mass=1.097,
+        d_diameter=0.001,
+        d_mass=0.0005,
+        slope_radius=Constants.R,
+    ),
+]
 
 
 def get_filepaths() -> Iterator[Path]:
@@ -64,7 +71,7 @@ def read_data(filepath: Path) -> tuple[np.ndarray, np.ndarray]:
             line_list = line.split()
             times.append(float(line_list[0]))
             x_values.append(float(line_list[1]))
-        return np.array(times), np.array(x_values)
+        return np.array(times), np.array(x_values) * 100
 
 
 def transform_x_to_phi(x_values: np.ndarray, cylinder: Cylinder) -> np.ndarray:
@@ -92,6 +99,7 @@ def plot_results(
     plt.grid()
 
     plt.savefig(filename, bbox_inches="tight")
+    plt.clf()
 
 
 def phi_d2(
@@ -162,8 +170,19 @@ def ODE_solver(
 
 def main():
     file_paths = get_filepaths()
-    return read_data(next(file_paths))
+    for path, cylinder in zip(file_paths, CYLINDERS):
+        times, x_values = read_data(path)
+        phi_values = transform_x_to_phi(x_values, cylinder)
+        plot_path = Path(__file__).parent.parent / "Plots" / f"{cylinder.name}-plot"
+        plot_results(
+            plot_path,
+            [times],
+            [phi_values],
+            [f"{cylinder.name}"],
+            "tid (s)",
+            "vinkelutslag (rad)",
+        )
 
 
 if __name__ == "__main__":
-    print(main())
+    main()
