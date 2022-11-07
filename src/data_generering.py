@@ -96,6 +96,7 @@ def numerical_data_generation():
         data_path = (
             Path(__file__).parent.parent
             / "Data"
+            / "Numerical"
             / f"{cylinder.name}-numerical-data.txt"
         )
         save_numerical_results(data_path, data)

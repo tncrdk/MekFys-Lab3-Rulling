@@ -6,9 +6,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def get_filepaths() -> Generator[Path, None, None]:
+def get_filepaths(is_numerical: bool) -> Generator[Path, None, None]:
     workspace_root = Path(__file__).parent.parent
-    data_files_folder = workspace_root / "data"
+    if is_numerical:
+        data_files_folder = workspace_root / "data" / "Numerical"
+    else:
+        data_files_folder = workspace_root / "data" / "Experimental"
     data_file_paths = Path(data_files_folder).glob("*.txt")
     return data_file_paths
 
@@ -54,12 +57,25 @@ def plot_results(
     plt.clf()
 
 
-def analyze_experimental_data():
-    file_paths = get_filepaths()
+def analyze_data(is_numerical: bool):
+    file_paths = get_filepaths(is_numerical)
     for path, cylinder in zip(file_paths, CYLINDERS):
         times, x_values = read_data(path)
         phi_values = transform_x_to_phi(x_values, cylinder)
-        plot_path = Path(__file__).parent.parent / "Plots" / f"{cylinder.name}-plot"
+        if is_numerical:
+            plot_path = (
+                Path(__file__).parent.parent
+                / "Plots"
+                / "Numerical"
+                / f"{cylinder.name}-plot"
+            )
+        else:
+            plot_path = (
+                Path(__file__).parent.parent
+                / "Plots"
+                / "Experimental"
+                / f"{cylinder.name}-plot"
+            )
         plot_results(
             plot_path,
             [times],
@@ -71,4 +87,4 @@ def analyze_experimental_data():
 
 
 if __name__ == "__main__":
-    analyze_experimental_data()
+    analyze_data(is_numerical=False)
