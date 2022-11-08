@@ -1,4 +1,19 @@
 from dataclasses import dataclass
+import numpy as np
+
+
+R: float = 46
+dR: float = 0.1
+g = 981
+
+delta = 0.024
+dt = 0.01
+phi_R = 0.0001
+beta = 0.20
+# delta = 0.04
+# dt = 0.01
+# phi_R = 0
+# beta = 0
 
 
 @dataclass
@@ -9,40 +24,45 @@ class Cylinder:
     d_diameter: float
     d_mass: float
     slope_radius: float
-    # TODO Legge til phi_0
+    x_0: float
+    c: float
 
     def __post_init__(self):
         self.L = self.slope_radius - self.diameter / 2
-
-
-R: float = 46
-dR: float = 0.1
+        self.phi_0 = np.arcsin(self.x_0 / self.L)
+        self.gamma = 1 / (1 + self.c)
+        self.w0 = np.sqrt(self.gamma * g / self.L)
 
 
 CYLINDERS: list[Cylinder] = [
     Cylinder(
-        name="metall hul",
+        name="hul_metall",
         diameter=0.424,
         mass=0.255,
         d_diameter=0.001,
         d_mass=0.0005,
         slope_radius=R,
-        # TODO Finn phi_0
+        x_0=5.910406,
+        c=0.5,
     ),
     Cylinder(
-        name="plast massiv",
-        diameter=0.735,
-        mass=0.44,
-        d_diameter=0.001,
-        d_mass=0.0005,
-        slope_radius=R,
-    ),
-    Cylinder(
-        name="metall massiv",
+        name="massiv_metall",
         diameter=0.445,
         mass=1.097,
         d_diameter=0.001,
         d_mass=0.0005,
         slope_radius=R,
+        x_0=-1.023518e1,
+        c=0.5,
+    ),
+    Cylinder(
+        name="massiv_plast",
+        diameter=0.735,
+        mass=0.44,
+        d_diameter=0.001,
+        d_mass=0.0005,
+        slope_radius=R,
+        x_0=-1.028708e1,
+        c=0.5,
     ),
 ]

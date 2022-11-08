@@ -1,15 +1,15 @@
-import Crank_Nicholson_method as CN
+from Crank_Nicholson_method import stepCN
 import numpy as np
 from typing import Callable
 from pathlib import Path
-from constants import CYLINDERS
+from constants import CYLINDERS, dt, phi_R, delta, beta
 
 
 def save_numerical_results(
     filepath: Path, data: tuple[np.ndarray, np.ndarray, np.ndarray]
 ):
     times, phi_values, phi_d1_values = data
-    with open(filepath, "w") as file:
+    with open(filepath, "w+") as file:
         file.write("times phi_values phi_d1_values\n")
 
     with open(filepath, "a") as file:
@@ -84,19 +84,35 @@ def ODE_solver(
 
 
 def numerical_data_generation():
-    STEP_FUNC = step_euler
-    dt = 0.1
+    STEP_FUNC = stepCN
     t_0: float = 0
     t_end: float = 100
     for cylinder in CYLINDERS:
-        phi_0: float  # TODO Finn ut phi_0, og w0
+        phi_0: float = cylinder.phi_0
         phi_d1_0: float = 0
-        w0: float
-        data = ODE_solver(dt, t_0, t_end, phi_0, phi_d1_0, w0, step_func=STEP_FUNC)
+        w0: float = cylinder.w0
+        data = ODE_solver(
+            dt,
+            t_0,
+            t_end,
+            phi_0,
+            phi_d1_0,
+            w0,
+            cylinder.gamma,
+            phi_R=phi_R,
+            delta=delta,
+            beta=beta,
+            step_func=STEP_FUNC,
+        )
         data_path = (
             Path(__file__).parent.parent
             / "Data"
             / "Numerical"
-            / f"{cylinder.name}-numerical-data.txt"
+            / f"{STEP_FUNC.__name__}"
+            / f"{cylinder.name}-{STEP_FUNC.__name__}-data.txt"
         )
         save_numerical_results(data_path, data)
+
+
+if __name__ == "__main__":
+    numerical_data_generation()
