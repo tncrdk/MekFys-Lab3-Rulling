@@ -34,6 +34,7 @@
 
 % Vi kan også definere egne funksjoner
 \newcommand{\enhet}[1]{~\mathrm{#1}}  % Kommando for å enklere typesette enheter
+\newcommand{\dd}[2]{\frac{\mathrm{d}{#1}}{\mathrm{d}{#2}}}
 
 % Gjør noen fornorskinger (vanligvis holder et med pakken "babel", men Elsarticle ødelegger)
 % Endrer fra "Preprint submitted to" til "Preprint forelagt"
@@ -43,7 +44,7 @@
 \abstracttitle{Sammendrag} % Spesifikt for elsarticle
 
 % Her skriver man tittel og forfatterinformasjon
-\title{Mal for labrapport i FY1001 Mekanisk fysikk}
+\title{Dempet rullebevegelse i bunnen av sirkelformet bane}
 \author[fysikk]{T. C. Djupvik}
 \author[fysikk]{O. F. Jakobsen}
 \address[fysikk]{Institutt for fysikk, Norges Teknisk-Naturvitenskapelige Universitet, N-7491 Trondheim, Norway.}
@@ -107,7 +108,8 @@ Ved å bruke Newtons andre lov på den rullende sylinderen
 og bruke ligningen for \(f_R\) kommer man frem til følgende uttrykk:
 
 \begin{equation}
-	\begin{split}	
+	\begin{split}
+		\label{ODE}	
 		\ddot{\phi} = 	
 		&- \omega_0^2\sin\phi - 2\delta\dot{\phi}	\\
 		&- \frac{\pi\phi_R}{2\omega_0}
@@ -119,36 +121,78 @@ og bruke ligningen for \(f_R\) kommer man frem til følgende uttrykk:
 Her er størrelsene \(\delta\), \(\beta\) og \(\phi_R\) skalerte versjoner av 
 \(\tilde{\delta}\), \(\tilde{\beta}\) og \(d\), der \(d\) er armen til normalkraften (se figur \ref{Figur})
 
-og så videre ...
+Å løse differensialligninger eksakt vil i de fleste tilfeller være svært vanskelig eller umulig.
+Likevel kan man løse \eqref{ODE} i noen grensetilfeller. Ved å bare se på \(\phi << 1\) vil man kunne
+bruke approksimasjonene 
+\(\sin(\phi) = \phi + \mathcal{O}(\phi^3) \approx \phi\) og 
+\(\cos(\phi) = 1 + \mathcal{O}(x^2) \approx 1\).
+I tillegg vil man kunne finne eksakte løsninger ved å sette to av \(\delta\), \(\beta\) og \(\phi_R\) lik 0.
+\par
+Selv om man i noen tilfeller kan finne analytiske løsninger 
+vil det i mange tilfeller være mer hensiktsmessig å løse differensialligningen numerisk.
+\eqref{ODE} er en ordinær differensialligning av andre orden. 
+Denne kan skrives som to koblede førsteordens ordinære differensialligninger ved å innføre \(u = \dot{\phi}\):
 
-\[e^{i\pi} = -1\]
+\begin{subequations}
+	\begin{align}
+		\dd{\phi}{t} & = u \\
+		\dd{u}{t}    & = f(\phi, u) \\
+	\end{align}
+\end{subequations}
+
+Dette ligningssettet kan løses diskret ved bruk av Eulers metode. 
+Man løser da
+
+\begin{subequations}
+	\begin{align}
+		\phi_{i+1} & = \phi_i + u_i \Delta{t} \\
+		u_{i+1}    & = u_i + f(\phi_i, u_i) \Delta {t} 
+	\end{align}
+	for en valgt \(\Delta t\) og med startverdiene \(\phi_0\) og \(u_0 = \dot{\phi_0}\)
+\end{subequations}
+
+Da Eulers metode ofte fører til systematisk avvik, er det bedre å bruke Crank-Nicholson-metoden. (ref her?)
+
 \begin{figure}[] 
 % Alternativene inne i klammene angir hvilke av følgende plasseringer du vil tillate:
 % h = here, t = top, b = bottom, p = separat, ! = forsøk å overstyre preferansene til LaTeX.
 % (Preferansene til LaTeX gjør noen ganger at figurer ikke havner der du selv mener de passer best...).
   \begin{center}
-      \includegraphics[width=0.3\textwidth]{drawing}  % Putter inn fila pendel.pdf
+      \includegraphics[width=0.4\textwidth]{drawing2}  % Putter inn fila pendel.pdf
 %   Hvis du angir bare enten width eller height, beholdes originalfigurens proporsjoner. (Dette anbefales.)
 % 	Her har vi brukt width=0.3\textwidth for å angi figurbredde som en andel av den delen av arkbredden som inneholder tekst.
   \end{center}
-  \caption{Her skriver du figurteksten. Merk at denne kommer under figuren. Naturligvis avslutter vi figurteksten med punktum,
-  og det gjelder selv om den inneholder bare én setning eller til og med bare ett ord.}
-  \label{Figur} % Som med ligningen, er dette navnet vi refererer til.
+  \caption{Skisse av system.}
+  \label{Fig System} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
-% Vi kan referere til figurer på samme måte som vi refererer til ligninger. Nå refererer vi til 
-% figur \ref{Figur}. Gode figurer skal være enkle ved at de begrenses til de forhold du
-% hovedsakelig ønsker å illustrere. De skal være klare ved at du bruker skarpe konturer, markere
-% symmetriakser vha.\ strek--punkt linjer (senterlinjer), markere snitt ved skravering, tydelige
-% målgrenselinjer og tydelige mållinjer med pilspisser og måltall. 
-% Figurer av mekaniske instrumentoppstillinger skal vise alle relevante romlige dimensjoner.
-% Vis tallverdier for romlige dimensjoner med mållinjer og måltall eller angi figurens målestokk.
-% Det er viktig at oppløsningen på figuren er tilstrekkelig til at alt er lett leselig og at teksten er stor nok.
-% Det beste er ofte å lage figurer i et vektorformat, slik som pdf. For enkle grafikker kan eventuelt png-format brukes.
-% % Legg merke til at nå bruker vi \ref{} og ikke \eqref{}. Figurreferansen skal ikke ha parenteser rundt seg.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Metode}
-\textit{Presentere hvordan data ble samlet og analysert. Vise evt. til deler av kode som er brukt. }
+\noindent\textbf{Utstyr}:
+\begin{itemize}
+	\item Kvartsirkel i stål (\(R = 46 \enhet{cm}\))
+	\item Tre ulike sylindre:
+	\\ Sylinder 1 - massiv plast
+	\\ Sylinder 2 - liten metall solid 
+	\\ Sylinder 3 - liten metall hul
+	\item Kamera med tripod Panasonic DMC-FZ-200
+	\item Videoanalyseprogrammet Tracker
+	\item Meterstav, skyvelær, vekt
+\end{itemize}
+
+I dette forsøket brukes Tracker til å samle inn måleserier. 
+Først gjøres det et testopptak for å passe på at lys- og fokusinnstillinger på kameraet er gode nok for videre analyse.
+Deretter blir sylinderen satt i sirkelbanen. (Se figur \ref{Fig Oppsett})
+Ved å bruke autotracker-funksjonen i Tracker får man deretter ut måleserier med posisjonsdata.
+Videre analyser \dots  
+
+\begin{figure}[] 
+	\begin{center}
+		\includegraphics[width=0.4\textwidth]{skisse}
+	\end{center}
+	\caption{Skisse av oppsett.}
+	\label{Fig Oppsett} % Som med ligningen, er dette navnet vi refererer til.
+\end{figure}
 
 \usemintedstyle{rrt}
 \begin{minted}{python}
@@ -212,6 +256,8 @@ Merk at denne tabellen inneholder få skillelinjer, som gjør at den blir ryddig
 % betingelser. Vær imidlertid forsiktig med dette. Diagrammer hvor det blir tegnet mange kurver adskilt 
 % ved bruk av alt for mange forskjellige symboler blir fort uklare. 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Diskusjon}
 \textit{Her er det konklusjonen av resultatene dine som skal diskuteres, og
 for å kunne diskutere dette må du sette dem inn i en større
@@ -239,6 +285,7 @@ noe ved sylinderen (masse, radius, massefordeling etc.).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Konklusjon}
 \textit{
 Konklusjonen er rapportens viktigste del. I konklusjonen legger du frem ditt egentlige faglige bidrag. Det er som regel formidlingen av dette bidraget som er hovedgrunnen til at du skriver rapporten. Konklusjonskapitlet bør ikke skrives før du har tenkt grundig over resultatene fra dine egne målinger og sammenlignbare målinger gjort av andre i lys av den teori du har valgt å tolke resultatene innenfor. En god konklusjon er kort og presis, og presenterer kun hovedresultatet og konklusjonen fra diskusjonen. Eventuelt fremtidig arbeid kan også nevnes her. 
