@@ -1,23 +1,6 @@
-% *** LaTeX-mal for labrapporter i FY1001 Mekanisk fysikk, NTNU ***
+% LaTeX-mal for labrapporter i FY1001 Mekanisk fysikk, NTNU
 % Jonas Tjemsland og Rolf Jonas Persson september 2021
-
 % Basert på LaTeX-mal for labrapporter i FY1001, v.01.11.2011, og tidligere labhefter.
-
-% Dette er et eksempel på et LaTeX-dokument, og du kan bruke dette som et utgangspunkt for 
-% din egen rapport. Den enkleste måten å komme i gang med LaTeX er ved å benytte seg
-% av Overleaf (https://www.overleaf.com) gjennom en nettleser. Dette krever ingen
-% installasjon og flere personer kan redigere samme dokument samtidig.
-
-% Her i starten og videre nedover i teksten under har vi lagt inn en god del linjer som starter med
-% tegnet "%". Alt som kommer etter et slikt tegn på den linja er kommentarer og vil ikke synes i den 
-% ferdige teksten. Vi bruker det for å forklare ting underveis. 
-
-% Først må vi definere noen ting for dokumentet:
-
-% Den første linjen i ethvert TeX-dokument definerer dokumentklassen. Dette gir en overordnet stuktur
-% vi bygger dokmentet på. Noen vanlige klasser er "article", "report", "book", "slides" og "letter".
-% Her skal vi bruke "elsarticle", som er dokumentklassen man må bruke om man ønsker å publisere
-% i Elsevier-tidsskriftene.
 
 \documentclass[5p]{elsarticle}
 % I klammeparantesen kan vi definere noen parametere som er spesifikt for hver klasse.
@@ -34,7 +17,7 @@
 
 % Vi kan også definere egne funksjoner
 \newcommand{\enhet}[1]{~\mathrm{#1}}  % Kommando for å enklere typesette enheter
-\newcommand{\dd}[2]{\frac{\mathrm{d}{#1}}{\mathrm{d}{#2}}}
+\newcommand{\dd}[2]{\frac{\mathrm{d}{#1}}{\mathrm{d}{#2}}} % i stedet for \frac{d}{d} 
 
 % Gjør noen fornorskinger (vanligvis holder et med pakken "babel", men Elsarticle ødelegger)
 % Endrer fra "Preprint submitted to" til "Preprint forelagt"
@@ -51,13 +34,9 @@
 \journal{Labveileder} % Leveres til labveileder
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Selve dokumentet befinner seg i miljøet "document". Et miljø starter med kommandoen "\begin{}" og ender med "\end{}".
-% Vi kommer til å benytte oss av en rekke slike miljøer i dokumentet.
 \begin{document}
 
 \begin{abstract}
-Denne teksten tar for seg hvordan man skriver en fysikkrapport. I tillegg fungerer
-den som en mal for rapporten som skal skrives som en del av semesteroppgaven i emnet FY1001 – Mekanisk fysikk.
 
 \textit{Her skriver du et sammendrag av rapporten. Sammendraget skal være veldig kort
 men må inneholde svaret på tre spørsmål: 1. Hva gjorde du (hva målte du)? 2. Hvordan 
@@ -119,7 +98,7 @@ og bruke ligningen for \(f_R\) kommer man frem til følgende uttrykk:
 \end{equation}
 
 Her er størrelsene \(\delta\), \(\beta\) og \(\phi_R\) skalerte versjoner av 
-\(\tilde{\delta}\), \(\tilde{\beta}\) og \(d\), der \(d\) er armen til normalkraften (se figur \ref{Figur})
+\(\tilde{\delta}\), \(\tilde{\beta}\) og \(d\), der \(d\) er armen til normalkraften (se figur \ref{Fig System})
 
 Å løse differensialligninger eksakt vil i de fleste tilfeller være svært vanskelig eller umulig.
 Likevel kan man løse \eqref{ODE} i noen grensetilfeller. Ved å bare se på \(\phi << 1\) vil man kunne
@@ -145,6 +124,7 @@ Man løser da
 
 \begin{subequations}
 	\begin{align}
+		\label{Newton}
 		\phi_{i+1} & = \phi_i + u_i \Delta{t} \\
 		u_{i+1}    & = u_i + f(\phi_i, u_i) \Delta {t} 
 	\end{align}
@@ -195,12 +175,6 @@ Videre analyser \dots
 	\label{Fig Oppsett} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
-% \usemintedstyle{rrt}
-% \begin{minted}{python}
-% #Dette er bare eksempelkode
-% print("Hello World")
-% \end{minted}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Resultat}
 
@@ -243,7 +217,7 @@ konsekvenser som resultatene av din undersøkelse medfører.}
 derere
 
 \textbf{Oppgave 3 (Diskusjon)}
-Ved hjelp av de numeriske metodene dere utviklet i oppgave 2 kan dere nå sammenligne nume-
+Ved hjelp av de numeriske metodene dere utviklet i oppgave 2 kan dere nå sammenligne nume
 riske og eksperimentelle resultater. Selv om størrelsene \(\phi_R\), \(\beta\) og \(\delta\) er ukjente størrelser (som er
 svært vanskelige å måle), kan de likevel anslås ved å bestemme hvilke verdier for \(\phi_R\), \(\beta\) og \(\delta\) som
 gir best samsvar mellom numeriske og eksperimentelle resultater.
@@ -258,26 +232,29 @@ kreftene dere har anslått som de viktigste?
 i 3a) for begge måleseriene. Hva kan være en fysisk forklaring på det dere observerer? Hvis dere
 kun har én måleserie, kan dere spekulere i hvordan dynamikken ville endret seg om dere endret
 noe ved sylinderen (masse, radius, massefordeling etc.).
-
+\\Må også diskutere feilkilder. kanskje: startfart, evt. usikkerhetsberegninger.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Konklusjon}
 \textit{
-Konklusjonen er rapportens viktigste del. I konklusjonen legger du frem ditt egentlige faglige bidrag. Det er som regel formidlingen av dette bidraget som er hovedgrunnen til at du skriver rapporten. Konklusjonskapitlet bør ikke skrives før du har tenkt grundig over resultatene fra dine egne målinger og sammenlignbare målinger gjort av andre i lys av den teori du har valgt å tolke resultatene innenfor. En god konklusjon er kort og presis, og presenterer kun hovedresultatet og konklusjonen fra diskusjonen. Eventuelt fremtidig arbeid kan også nevnes her. 
+Konklusjonen er rapportens viktigste del. 
+I konklusjonen legger du frem ditt egentlige faglige bidrag. 
+Det er som regel formidlingen av dette bidraget som er hovedgrunnen til at du skriver rapporten. 
+Konklusjonskapitlet bør ikke skrives før du har tenkt grundig over resultatene fra dine egne målinger 
+og sammenlignbare målinger gjort av andre i lys av den teori du har valgt å tolke resultatene innenfor.
+En god konklusjon er kort og presis, og presenterer kun hovedresultatet og konklusjonen fra diskusjonen. 
+Eventuelt fremtidig arbeid kan også nevnes her. 
 }
-
-Vi har gitt dere et eksempel på rapportoppsett. Nå er det din tur -- lykke til!
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Her kommer referanselisten. Dersom du ønsker flere enn noen få referanser, kan det lønne seg å 
+% Her kommer referanselisten. 
+% Dersom du ønsker flere enn noen få referanser, kan det lønne seg å 
 % søke opp "BibTeX" og sette seg litt inn i det. 
-\begin{thebibliography}{99}	% Denne referanselisten kan ikke ha flere enn 99 referanser.
-
-\bibitem{Falch} % I klammeparentes angir vi merkelapp for de ulike oppføringene i listen.
+\begin{thebibliography}{5}
+\bibitem{Falch}
 V. Falch, N. H. Aase og S. C. Johnsen. Prosjektbeskrivelse Lab 3 FY1001. NTNU Institutt for fysikk, 7. oktober 2022.
-
 \end{thebibliography}
 
 \end{document}
