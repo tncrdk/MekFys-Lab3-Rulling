@@ -184,7 +184,8 @@ I dette forsøket brukes Tracker til å samle inn måleserier.
 Først gjøres det et testopptak for å passe på at lys- og fokusinnstillinger på kameraet er gode nok for videre analyse.
 Deretter blir sylinderen satt i sirkelbanen. (Se figur \ref{Fig Oppsett})
 Ved å bruke autotracker-funksjonen i Tracker får man deretter ut måleserier med posisjonsdata.
-Videre analyser \dots  
+Videre analyser \dots 
+(legg inn tweaking + scipy) 
 
 \begin{figure}[] 
 	\begin{center}
@@ -194,40 +195,29 @@ Videre analyser \dots
 	\label{Fig Oppsett} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
-\usemintedstyle{rrt}
-\begin{minted}{python}
-#Dette er bare eksempelkode
-print("Hello World")
-\end{minted}
+% \usemintedstyle{rrt}
+% \begin{minted}{python}
+% #Dette er bare eksempelkode
+% print("Hello World")
+% \end{minted}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Resultat}
 
-\textit{
-Dette kapitlet er sterkt knyttet til laboratoriejournalen fra eksperimentet. Hvis du har skrevet en god journal og
-fulgt anbefalinger om å gjøre alle tabeller og kurver ferdige under skriving av journalen, er resultatkapitlet lettskrevet. 
-Prøv å gjøre det til et selvstendig kapittel. Presenter resultatene i logisk rekkefølge. Prøv også å legge resultatene frem
-slik at de resultater som leder til konklusjonen trer klart frem. Bruk tabeller og diagrammer og angi resultater fra
-eventuell feilanalyse av eksperimentet.  Hvis diskusjonskapitlet ser ut til å bli litt magert, kan det være en tanke å
-kombinere resultatkapitlet og diskusjonskapitlet. Store sett med rådata hører ikke hjemme i en rapport, med mindre det er
-presentert i en grafisk form.
-}
+Ved implementering av Eulers metode får man: (plot Euler)
+Ved å variere \(\Delta t\) får vi følgende resultater.
+Likeledes gir CN-metoden følgende: (plot)
+Ved å variere \(\Delta t\) får vi følgende resultater.
+(plotting)
 
-% Vi vil ofte skrive inn enkeltmålinger i resultatdelen, som at vi måler lengden til pendelen til å være\\
-% $l = 1000,015\pm0,005\enhet{mm}$, men dette kan også passe godt inn når metoden og aparaturen beskrives.
-% Kanskje vil vi skrive opp usikkerheten separat, som her er $\Delta l = 5\cdot 10^{-6}\enhet{m}$.
+Eksperimentering av ulike verdier for \(phi_R\), \(\delta\) og \(\beta\)
+Må vurdere hvor mange plots som er hensiktsmessig. Kanskje bare ta med to måleserier?
 
-I denne delen har dere ofte bruk for tabeller. Et eksempel på dette kan du se i tabell \ref{MinLilleTabell}. 
-Merk at denne tabellen inneholder få skillelinjer, som gjør at den blir ryddig og pen.
-% %
-% % Denne kan være litt vanskelig å forstå, men hvis du 
-% % studerer eksempelet nøye, blir det forhåpentligvis litt klarere.
-% %
 \begin{table}[htb]
 	\begin{center}
 		\caption{Målinger av de ulike sylindrene.}
 		\label{MinLilleTabell}	% Merkelappen vi vil referere til.
-		% \vspace{0.5cm}					% Litt ekstra plass for å få det til å se penere ut.
+		% \vspace{0.5cm}	% Litt ekstra plass for å få det til å se penere ut.
 		\begin{tabular}{lrrr} 		% Tre venstrejusterte kolonner (l = left, c = center, r = right).
 			\hline 								% Horisontal linje.
 		    Sylinder &  masse  & indre diameter & ytre diameter \\ % Merk symboler i kursiv, (men det er fordi de er symboler, ikke fordi de er kolonneoverskrifter!)
@@ -241,20 +231,6 @@ Merk at denne tabellen inneholder få skillelinjer, som gjør at den blir ryddig
 		\end{tabular}
 	\end{center}
 \end{table}
-% Litt ekstra forklaring av tabellen til slutt:
-% Du skiller altså kolonnene med tegnet "&", og du setter inn linjeskift med "\\".
-% (Dersom du får problemer med at kommaene ikke flukter i kolonnen, se kap. 8.3.1 i labheftet, eller bruk f.eks. pakken siunitx.)
-% De horisontale linjene er plassert ifølge standarden du etterhvert bør ha begynt å bli vant til.
-
-% Før man har lært seg å bruke LaTeX bør man ikke prøve å tvinge dokumentet til å se ut på en spesiell måte.
-% En av de store fordelene med LaTeX er at man kan skrive teksten uten å tenke på dokumentformateringen. Denne er nemlig
-% allerede satt opp for oss! LaTeX ordner alt av sideskift og bildeplasseringer for oss og det blir som regel bra dersom man har
-% satt opp dokumentet rett.
-
-% Noen resultater kan også presenteres i form av diagrammer.
-% Tegn kun få kurver i hvert diagram. Forskjellige symboler kan brukes til å skille eksperimentelle punkter tatt opp under forskjellige 
-% betingelser. Vær imidlertid forsiktig med dette. Diagrammer hvor det blir tegnet mange kurver adskilt 
-% ved bruk av alt for mange forskjellige symboler blir fort uklare. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
