@@ -4,6 +4,11 @@ from pathlib import Path
 from constants import Cylinder, CYLINDERS, delta
 import numpy as np
 import matplotlib.pyplot as plt
+from Crank_Nicholson_method import stepCN
+from data_generering import ODE_solver
+from functools import partial
+from scipy.stats import tstd
+from scipy.optimize import minimize
 
 
 def get_filepaths(
@@ -32,7 +37,9 @@ def read_data(filepath: Path) -> tuple[np.ndarray, np.ndarray]:
 
 
 def transform_x_to_phi(x_values: np.ndarray, cylinder: Cylinder) -> np.ndarray:
-    return np.arcsin(x_values / cylinder.L)
+    return np.arcsin(
+        (x_values + 0.2) / cylinder.L
+    )  # Lagt til et lite skift pga skjevhet i filmen
 
 
 def analytic_solution(t, phi_0, w0, delta):
@@ -171,7 +178,81 @@ def generate_combined_plots(step_func_name: str):
         )
 
 
+def optimize_numerical():
+    for path, cylinder in zip(get_filepaths(is_numerical=False), CYLINDERS):
+        error_func = partial(error_numerical, filepath=path, cylinder=cylinder)
+        # guess_0 = [0.024, 0.0001, 0.20]  # delta, phi_R, beta
+        guess_0 = [0.0, 0.0, 0]  # delta, phi_R, beta
+        res = minimize(
+            error_func,
+            guess_0,
+            method="BFGS",
+        )
+        print(res.x)
+
+
+def error_numerical(guess: np.ndarray, filepath: Path, cylinder: Cylinder):
+    # do experimental - numerical values in arrays
+    # reduce std
+    delta = guess[0]
+    phi_R = guess[1]
+    beta = guess[2]
+
+    STEP_FUNC = stepCN
+    t_0: float = 0
+    t_end: float = 100
+    phi_0: float = cylinder.phi_0
+    phi_d1_0: float = 0
+    w0: float = cylinder.w0
+    dt = 0.01
+
+    times_exp, x_values_exp = read_data(filepath)
+    phi_values_exp = transform_x_to_phi(x_values_exp, cylinder)
+    times_arrs_num, phi_arrs_num, _ = ODE_solver(
+        dt,
+        t_0,
+        t_end,
+        phi_0,
+        phi_d1_0,
+        w0,
+        cylinder.gamma,
+        phi_R=phi_R,
+        delta=delta,
+        beta=beta,
+        step_func=STEP_FUNC,
+    )
+
+    difference = diff_numerical_experimental(
+        (times_arrs_num, phi_arrs_num), (times_exp, phi_values_exp)
+    )
+    return tstd(difference)
+
+
+def compare_arr_numerical_experimental(
+    num_data: tuple[np.ndarray, np.ndarray], exp_data: tuple[np.ndarray, np.ndarray]
+) -> tuple[tuple[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]:
+    times_num = np.round(num_data[0], 2)
+    times_exp = np.round(exp_data[0], 2)
+    list_indexing = [value in times_exp for value in times_num]
+    num_values_filtered = num_data[1][list_indexing]
+    num_times_filtered = num_data[0][list_indexing]
+    # print(num_times_filtered)
+
+    return (num_times_filtered, num_values_filtered), exp_data
+
+
+def diff_numerical_experimental(
+    num_data: tuple[np.ndarray, np.ndarray], exp_data: tuple[np.ndarray, np.ndarray]
+) -> np.ndarray:
+    filtered_num, filtered_exp = compare_arr_numerical_experimental(num_data, exp_data)
+    _, phi_values_num = filtered_num
+    _, phi_values_exp = filtered_exp
+
+    return phi_values_num - phi_values_exp
+
+
 if __name__ == "__main__":
-    generate_combined_plots("stepCN")
+    # generate_combined_plots("stepCN")
     # generate_numerical_plots("stepCN")
     # combine_numeric_analytic_plots("stepCN")
+    optimize_numerical()

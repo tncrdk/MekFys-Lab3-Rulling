@@ -14,6 +14,7 @@ beta = 0.20
 # dt = 0.01
 # phi_R = 0
 # beta = 0
+# delta, phi_R, beta = (0.10122902, 1.00712078, 0.20669557)
 
 
 @dataclass
