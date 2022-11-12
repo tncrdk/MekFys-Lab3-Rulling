@@ -181,7 +181,7 @@ def generate_combined_plots(step_func_name: str):
 def optimize_numerical():
     for path, cylinder in zip(get_filepaths(is_numerical=False), CYLINDERS):
         error_func = partial(error_numerical, filepath=path, cylinder=cylinder)
-        bounds = [(0.0, 0.2), (0.0, 0.001), (0.0, 0.30)]  # delta, phi_R, beta
+        bounds = [(0.0, 1.0), (0.0, 0.001), (0.0, 1.00)]  # delta, phi_R, beta
         ode_model = get_ode_model(ODE_solver, cylinder)
         # guess_0 = np.array([0.01, 0.01, 0.01])  # delta, phi_R, beta
         res = dual_annealing(error_func, bounds)
@@ -212,6 +212,7 @@ def get_ode_model(ODE_solver: Callable, cylinder: Cylinder):
         phi_d1_0=phi_d1_0,
         w0=w0,
         gamma=gamma,
+        step_func=STEP_FUNC,
     )
 
 
