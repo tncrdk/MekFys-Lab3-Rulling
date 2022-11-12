@@ -7,9 +7,9 @@ dR: float = 0.1
 g = 981
 
 delta = 0.024
-dt = 0.01
 phi_R = 0.0001
 beta = 0.20
+dt = 0.01
 # delta = 0.04
 # dt = 0.01
 # phi_R = 0
