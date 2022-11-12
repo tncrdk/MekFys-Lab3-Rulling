@@ -38,7 +38,7 @@ def read_data(filepath: Path) -> tuple[np.ndarray, np.ndarray]:
 
 def transform_x_to_phi(x_values: np.ndarray, cylinder: Cylinder) -> np.ndarray:
     return np.arcsin(
-        (x_values + 0.2) / cylinder.L
+        (x_values + 0.4) / cylinder.L
     )  # Lagt til et lite skift pga skjevhet i filmen
 
 
@@ -181,8 +181,8 @@ def generate_combined_plots(step_func_name: str):
 def optimize_numerical():
     for path, cylinder in zip(get_filepaths(is_numerical=False), CYLINDERS):
         error_func = partial(error_numerical, filepath=path, cylinder=cylinder)
-        # guess_0 = [0.024, 0.0001, 0.20]  # delta, phi_R, beta
-        guess_0 = [0.0, 0.0, 0]  # delta, phi_R, beta
+        guess_0 = [0.024, 0.0001, 0.20]  # delta, phi_R, beta
+        # guess_0 = [0.01, 0.01, 0.01]  # delta, phi_R, beta
         res = minimize(
             error_func,
             guess_0,
@@ -233,12 +233,17 @@ def compare_arr_numerical_experimental(
 ) -> tuple[tuple[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]:
     times_num = np.round(num_data[0], 2)
     times_exp = np.round(exp_data[0], 2)
-    list_indexing = [value in times_exp for value in times_num]
-    num_values_filtered = num_data[1][list_indexing]
-    num_times_filtered = num_data[0][list_indexing]
-    # print(num_times_filtered)
+    values_exp = exp_data[1]
 
-    return (num_times_filtered, num_values_filtered), exp_data
+    list_indexing = [time in times_exp for time in times_num]
+    num_times_filtered = times_num[list_indexing]
+    num_values_filtered = num_data[0][list_indexing]
+
+    list_indexing = [time in num_times_filtered for time in times_exp]
+    times_exp = times_exp[list_indexing]
+    values_exp = values_exp[list_indexing]
+
+    return (num_times_filtered, num_values_filtered), (times_exp, values_exp)
 
 
 def diff_numerical_experimental(
