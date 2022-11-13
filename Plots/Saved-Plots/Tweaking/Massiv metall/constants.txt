@@ -1,0 +1,5 @@
+delta, phi_R, beta = (-0.04, 0.0015, 0.46)
+
+x_to_phi-shift = 0.7
+
+phi_d1_0 = 0.0

@@ -5,10 +5,10 @@ from constants import Cylinder, CYLINDERS, delta
 import numpy as np
 import matplotlib.pyplot as plt
 from Crank_Nicholson_method import stepCN
-from data_generering import ODE_solver
+from data_generering import ODE_solver, numerical_data_generation
 from functools import partial
 from scipy.stats import tstd
-from scipy.optimize import dual_annealing
+from scipy.optimize import least_squares
 
 
 def get_filepaths(
@@ -38,7 +38,7 @@ def read_data(filepath: Path) -> tuple[np.ndarray, np.ndarray]:
 
 def transform_x_to_phi(x_values: np.ndarray, cylinder: Cylinder) -> np.ndarray:
     return np.arcsin(
-        (x_values + 0.4) / cylinder.L
+        (x_values + 0.45) / cylinder.L
     )  # Lagt til et lite skift pga skjevhet i filmen
 
 
@@ -181,16 +181,17 @@ def generate_combined_plots(step_func_name: str):
 def optimize_numerical():
     for path, cylinder in zip(get_filepaths(is_numerical=False), CYLINDERS):
         error_func = partial(error_numerical, filepath=path, cylinder=cylinder)
-        bounds = [(0.0, 1.0), (0.0, 0.001), (0.0, 1.00)]  # delta, phi_R, beta
+        bounds = [(0.0, 0.04), (0.0, 0.001), (0.0, 0.04)]  # delta, phi_R, beta
+        guess = [0.02, 0.0001, 0.02]
         ode_model = get_ode_model(ODE_solver, cylinder)
         # guess_0 = np.array([0.01, 0.01, 0.01])  # delta, phi_R, beta
-        res = dual_annealing(error_func, bounds)
+        res = least_squares(error_func, guess)
 
         # first = error_func(guess_0)
         # guess_0 = np.array([0.01, 0.21, 0.01])  # delta, phi_R, beta
         # second = error_func(guess_0)
         # print(first - second)
-        print(res.x)
+        print(res)
 
 
 def get_ode_model(ODE_solver: Callable, cylinder: Cylinder):
@@ -250,9 +251,15 @@ def error_numerical(guess: np.ndarray, filepath: Path, cylinder: Cylinder):
     difference = diff_numerical_experimental(
         (times_num, phi_values_num), (times_exp, phi_values_exp)
     )
-    stdev = tstd(difference)
+    stdev = tstd(np.abs(difference))
+    # s = np.sum(np.abs(difference))
+    print("delta = ", delta)
+    print("phi_R = ", phi_R)
+    print("beta = ", beta)
     print("Stdev: ", stdev, "\n")
-    return stdev
+    # print("sum: ", s, "\n")
+    # return stdev
+    return difference
 
 
 def compare_arr_numerical_experimental(
@@ -286,7 +293,8 @@ def diff_numerical_experimental(
 
 
 if __name__ == "__main__":
-    # generate_combined_plots("stepCN")
+    numerical_data_generation()
+    generate_combined_plots("stepCN")
     # generate_numerical_plots("stepCN")
     # combine_numeric_analytic_plots("stepCN")
-    optimize_numerical()
+    # optimize_numerical()
