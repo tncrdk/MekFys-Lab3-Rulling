@@ -184,7 +184,7 @@ I tillegg til analyse av de eksperimentelle dataene blir også problemet løst b
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Resultat}
 
-\begin{table}[h]
+\begin{table}[h!]
 	\begin{center}
 		\caption{Målinger av de ulike sylindrene.}
 		\label{MinLilleTabell}	% Merkelappen vi vil referere til.
@@ -204,7 +204,7 @@ I tillegg til analyse av de eksperimentelle dataene blir også problemet løst b
 \end{table}
 
 
-\begin{figure}[h] 
+\begin{figure}[h!] 
 	\begin{center}
         	\includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/combined-analytic/massiv_metall-step_euler.png}
         	\includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/step_euler-2b-small_dt/massiv_metall-step_euler-plot.png}
@@ -213,7 +213,7 @@ I tillegg til analyse av de eksperimentelle dataene blir også problemet løst b
 	\label{Fig step-Euler} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
-\begin{figure}[htb] 
+\begin{figure}[h!] 
 	\begin{center}
 		\includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/combined-analytic/massiv_metall-stepCN.png}
   
@@ -222,13 +222,21 @@ I tillegg til analyse av de eksperimentelle dataene blir også problemet løst b
 	\label{Fig CN} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
-\begin{figure}[h] 
+\begin{figure}[h!] 
 	\begin{center}
             \includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/Justert/Massiv metall/massiv_metall-stepCN.png}
 		\includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/Justert/Massiv plast/massiv_plast-stepCN copy.png}
  \end{center}
 	\caption{Justering av \(\phi_R\), \(\beta\) og \(\delta\) hos helholdsvis massiv metall og massiv plast.}
 	\label{Fig tweaking} % Som med ligningen, er dette navnet vi refererer til.
+\end{figure}
+
+\begin{figure}[h!] 
+	\begin{center}
+            \includegraphics[width=0.45\textwidth]{Plots/comparison_d_b_r.png}
+    \end{center}
+	\caption{Sammenligning av påvirkning til \(\phi_R\), \(\beta\) og \(\delta\) som funksjon av \(\dot{\phi}\).}
+	\label{Fig comparison} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
 Figur \ref{Fig step-Euler} viser implementering av Eulers metode på måle\-serien til Sylinder 1. Her er det valgt \(\Delta t = 0.01\) og \(\Delta t = 10^{-6}\). 
