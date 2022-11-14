@@ -10,7 +10,6 @@ from functools import partial
 from scipy.stats import tstd
 from scipy.optimize import least_squares
 
-
 def get_filepaths(
     is_numerical: bool, step_func_name: str = "step-euler"
 ) -> Generator[Path, None, None]:
@@ -293,8 +292,8 @@ def diff_numerical_experimental(
 
 
 if __name__ == "__main__":
-    numerical_data_generation()
-    generate_combined_plots("stepCN")
+    # numerical_data_generation()
+    # generate_combined_plots("stepCN")
     # generate_numerical_plots("stepCN")
     # combine_numeric_analytic_plots("stepCN")
-    # optimize_numerical()
+    optimize_numerical()
