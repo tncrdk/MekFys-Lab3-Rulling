@@ -3,3 +3,4 @@ Pipfile
 .env
 *.lock
 .mypy*
+.vscode
