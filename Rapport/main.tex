@@ -134,7 +134,7 @@ Man løser da
 
 Da Eulers metode ofte fører til systematisk avvik, er det bedre å bruke Crank-Nicholson-metoden. (ref her?)
 
-\begin{figure}[] 
+\begin{figure}[h] 
 % Alternativene inne i klammene angir hvilke av følgende plasseringer du vil tillate:
 % h = here, t = top, b = bottom, p = separat, ! = forsøk å overstyre preferansene til LaTeX.
 % (Preferansene til LaTeX gjør noen ganger at figurer ikke havner der du selv mener de passer best...).
@@ -148,6 +148,7 @@ Da Eulers metode ofte fører til systematisk avvik, er det bedre å bruke Crank-
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 \section{Metode}
 \noindent\textbf{Utstyr}:
 \begin{itemize}
@@ -165,8 +166,8 @@ I dette forsøket brukes Tracker til å samle inn måleserier.
 Først gjøres det et testopptak for å passe på at lys- og fokusinnstillinger på kameraet er gode nok for videre analyse.
 Deretter blir sylinderen satt i sirkelbanen. (Se figur \ref{Fig Oppsett})
 Ved å bruke autotracker-funksjonen i Tracker får man deretter ut måleserier med posisjonsdata.
-Videre analyser \dots 
-(legg inn tweaking + scipy) 
+Videre blir posisjonsdataene analysert og plottet med Python. 
+I tillegg til analyse av de eksperimentelle dataene blir også problemet løst både analytisk med en forenklet modell og numerisk. Løsningene blir dernest også plottet i python sammen med de eksperimentelle dataene. Dette for å etterpå kunne finne tilnærmede verdier for $\delta, \phi_R,$ og $\beta$, som gir best overenskomst med de eksperimentelle dataene.
 
 \begin{figure}[] 
 	\begin{center}
@@ -198,14 +199,39 @@ Videre analyser \dots
 	\end{center}
 \end{table}
 
-Ved implementering av Eulers metode får man: (plot Euler)
-Ved å variere \(\Delta t\) får vi følgende resultater.
-Likeledes gir CN-metoden følgende: (plot)
-Ved å variere \(\Delta t\) får vi følgende resultater.
+
+\begin{figure}[] 
+	\begin{center}
+        	\includegraphics[width=0.5\textwidth]{Plots/Saved-Plots/combined-analytic/massiv_metall-step_euler.png}
+        	\includegraphics[width=0.5\textwidth]{Plots/Saved-Plots/step_euler-2b-small_dt/massiv_metall-step_euler-plot.png}
+        \end{center}
+	\caption{Bruk av Eulers metode. Henholdsvis \(\Delta t = 0.01\) og \(\Delta t = 10^{-6}\)}
+	\label{Fig step-Euler} % Som med ligningen, er dette navnet vi refererer til.
+\end{figure}
+
+\begin{figure}[] 
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{Plots/Saved-Plots/combined-analytic/massiv_metall-stepCN.png}
+  
+ \end{center}
+	\caption{CN og analytic}
+	\label{Fig CN} % Som med ligningen, er dette navnet vi refererer til.
+\end{figure}
+
+\begin{figure}[] 
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{Plots/Saved-Plots/Tweaking/}
+  
+ \end{center}
+	\caption{massiv\_metall-stepCN.png}
+	\label{Fig massiv_metall} % Som med ligningen, er dette navnet vi refererer til.
+\end{figure}
+
+Figur \ref{Fig step-Euler} viser implementering av Eulers metode på måleserien til Sylinder 1. Her er det valgt \(\Delta t = 0.01\) og \(\Delta t = 10^{-6}\). 
+Crank-Nicholson-metoden gir fullstendig sammenfallende løsning som den analytiske løsningen av \eqref{ODE}. Se figur \ref{Fig CN}
 (plotting)
 
-Eksperimentering av ulike verdier for \(phi_R\), \(\delta\) og \(\beta\)
-Må vurdere hvor mange plots som er hensiktsmessig. Kanskje bare ta med to måleserier?
+Eksperimentering av ulike verdier for \(\phi_R\), \(\delta\) og \(\beta\)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

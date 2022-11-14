@@ -37,7 +37,7 @@ def read_data(filepath: Path) -> tuple[np.ndarray, np.ndarray]:
 
 def transform_x_to_phi(x_values: np.ndarray, cylinder: Cylinder) -> np.ndarray:
     return np.arcsin(
-        (x_values + 0.45) / cylinder.L
+        (x_values + 0.7) / cylinder.L
     )  # Lagt til et lite skift pga skjevhet i filmen
 
 
