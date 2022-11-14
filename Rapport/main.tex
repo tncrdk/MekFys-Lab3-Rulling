@@ -71,7 +71,7 @@ som henholdsvis inneholder diverse dempekrefter, luftmotstand og rullefriksjon.
 	\vec{f_R} & = -|\vec{f_R}|\hat{v}				
 \end{align}
 
-Her er \(\tilde{\delta}\) \textit{dempingskonstanten},\(\tilde{\beta}\) \textit{dragkoeffisienten}.
+Her er \(\tilde{\delta}\) \text{dempingskonstanten}, \(\tilde{\beta}\) \text{dragkoeffisienten}.
 Det kan vises at \(F_R\) kan uttrykkes ved
 
 \begin{equation}
@@ -164,8 +164,8 @@ I dette forsøket brukes Tracker til å samle inn måleserier.
 Først gjøres det et testopptak for å passe på at lys- og fokusinnstillinger på kameraet er gode nok for videre analyse.
 Deretter blir sylinderen satt i sirkelbanen. (Se figur \ref{Fig Oppsett})
 Ved å bruke autotracker-funksjonen i Tracker får man deretter ut måleserier med posisjonsdata.
-Videre analyser \dots 
-(legg inn tweaking + scipy) 
+Videre blir posisjonsdataene analysert og plottet med Python. 
+I tillegg til analyse av de eksperimentelle dataene blir også problemet løst både analytisk med en forenklet modell, og numerisk. Løsningene blir dernest også plottet i python sammen med de eksperimentelle dataene. Dette for å etterpå kunne finne tilnærmede verdier for $\delta, \phi_R,$ og $\beta$, som gir best overenskomst med de eksperimentelle dataene.
 
 \begin{figure}[] 
 	\begin{center}
@@ -214,7 +214,6 @@ for å kunne diskutere dette må du sette dem inn i en større
 sammenheng. Dette gjør du ved å relatere resultatene dine til
 tidligere utførte undersøkelser på samme område, og ved å forutsi de
 konsekvenser som resultatene av din undersøkelse medfører.}
-derere
 
 \textbf{Oppgave 3 (Diskusjon)}
 Ved hjelp av de numeriske metodene dere utviklet i oppgave 2 kan dere nå sammenligne nume
