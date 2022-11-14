@@ -54,8 +54,6 @@ Ved å sammenligne de eksperimentelle målingene med de numeriske og analytiske 
 ligningen som beskriver systemet ønsker vi å anslå verdier for de ulike dempeeffektene. 
 I tillegg vil det bli diskutert hvordan de ulike bremsekreftene varierer alt etter hvor sylinderen 
 er i banen.
-\par
-Videre vil diskusjonen sammenligne måleseriene av ulike sylindre, og ...
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Teori}
@@ -98,8 +96,15 @@ og bruke ligningen for \(f_R\) kommer man frem til følgende uttrykk:
 \end{equation}
 
 Her er størrelsene \(\delta\), \(\beta\) og \(\phi_R\) skalerte versjoner av 
-\(\tilde{\delta}\), \(\tilde{\beta}\) og \(d\), der \(d\) er armen til normalkraften (se figur \ref{Fig System})
-
+\(\tilde{\delta}\), \(\tilde{\beta}\) og \(d\), der \(d\) er armen til normalkraften (se figur \ref{Fig System}).
+Disse er definert slik:
+\begin{subequations}
+    \begin{align}
+        \delta & = \gamma\frac{\tilde{\delta}}{2m} \\
+        \beta & = \frac{4\gamma}{3\pi}\frac{\omega_0l}{m}\tilde{\beta} \\
+        \phi_R & = \frac{d}{r}\frac{2\omega_0}{\pi}
+    \end{align}
+\end{subequations}
 
 Å løse differensialligninger eksakt vil i de fleste tilfeller være svært vanskelig eller umulig.
 Likevel kan man løse \eqref{ODE} i noen grensetilfeller. Ved å bare se på \(\phi << 1\) vil man kunne
@@ -116,7 +121,7 @@ Denne kan skrives som to koblede førsteordens ordinære differensialligninger v
 \begin{subequations}
 	\begin{align}
 		\dd{\phi}{t} & = u \\
-		\dd{u}{t}    & = f(\phi, u) \\
+		\dd{u}{t}    & = f(\phi, u)
 	\end{align}
 \end{subequations}
 
@@ -134,7 +139,7 @@ Man løser da
 
 Da Eulers metode ofte fører til systematisk avvik, er det bedre å bruke Crank-Nicholson-metoden. (ref her?)
 
-\begin{figure}[h] 
+\begin{figure}[] 
 % Alternativene inne i klammene angir hvilke av følgende plasseringer du vil tillate:
 % h = here, t = top, b = bottom, p = separat, ! = forsøk å overstyre preferansene til LaTeX.
 % (Preferansene til LaTeX gjør noen ganger at figurer ikke havner der du selv mener de passer best...).
@@ -218,10 +223,10 @@ I tillegg til analyse av de eksperimentelle dataene blir også problemet løst b
 	\label{Fig CN} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
-\begin{figure}[htb] 
+\begin{figure}[h] 
 	\begin{center}
-		\includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/Tweaking/Massiv metall/massiv_metall-stepCN.png}
-            \includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/Tweaking/Massiv plast/massiv_plast-stepCN copy.png}
+            \includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/Justert/Massiv metall/massiv_metall-stepCN.png}
+		\includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/Justert/Massiv plast/massiv_plast-stepCN copy.png}
  \end{center}
 	\caption{Justering av \(\phi_R\), \(\beta\) og \(\delta\) hos helholdsvis massiv metall og massiv plast.}
 	\label{Fig tweaking} % Som med ligningen, er dette navnet vi refererer til.
