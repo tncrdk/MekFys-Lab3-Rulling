@@ -5,15 +5,9 @@ import numpy as np
 R: float = 46
 dR: float = 0.1
 g = 981
-
-delta = 0.024
 dt = 0.01
-phi_R = 0.0001
-beta = 0.20
-# delta = 0.04
-# dt = 0.01
-# phi_R = 0
-# beta = 0
+
+delta, phi_R, beta = (0.02647991e00, 0.90958430e-03, -1.30967627e-02)
 
 
 @dataclass

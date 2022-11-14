@@ -4,3 +4,14 @@ Pipfile
 *.lock
 .mypy*
 .vscode
+src/__pycache__
+Rapport/*.svg
+Rapport/*.out
+Rapport/*.fls
+Rapport/*.fdb_latexmk
+Rapport/*.aux
+Rapport/*.spl
+Rapport/*.gz
+Rapport/*.log
+Rapport/_minted-main
+

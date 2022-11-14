@@ -83,7 +83,8 @@ def ODE_solver(
     return times, phi_values, phi_d1_values
 
 
-def numerical_data_generation():
+def numerical_data_generation() -> list[tuple[np.ndarray, np.ndarray, np.ndarray]]:
+    results = []
     STEP_FUNC = stepCN
     t_0: float = 0
     t_end: float = 100
@@ -112,6 +113,8 @@ def numerical_data_generation():
             / f"{cylinder.name}-{STEP_FUNC.__name__}-data.txt"
         )
         save_numerical_results(data_path, data)
+        results.append(data)
+    return results
 
 
 if __name__ == "__main__":
