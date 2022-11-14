@@ -22,7 +22,7 @@
 % Gjør noen fornorskinger (vanligvis holder et med pakken "babel", men Elsarticle ødelegger)
 % Endrer fra "Preprint submitted to" til "Preprint forelagt"
 \usepackage{etoolbox}
-\makeatletter\patchcmd{\ps@pprintTitle}{Preprint submitted to}{Preprint forelagt}{}{}\makeatother
+ \makeatletter\patchcmd{\ps@pprintTitle}{Preprint submitted to}{Preprint forelagt}{}{}\makeatother
 % Abstract -> Sammendrag
 \abstracttitle{Sammendrag} % Spesifikt for elsarticle
 
@@ -37,10 +37,9 @@
 \begin{document}
 
 \begin{abstract}
+Ulike sylindre som ruller rent i bunnen av en sirkelformet bane opplever ulike dempekrefter.
+I dette forsøket ønskes det å analysere et slikt system med hjelp av videoanalyse og numeriske løsninger av den aktuelle differensial\-ligningen. I løsningen av differensial-ligningene ble både Crank-Nicholson-metoden og Euler-metoden ble forsøkt brukt, hvorpå Crank-Nicholson-metoden gav en bedre tilnærming til de eksperimentelle dataene enn Eulers-metode. Det ble dernest observert, basert på de numeriske modellene, at luftmotstanden og den forenklede motstanden fra en del andre fysiske prosesser var særdeles dominerende i forhold til rullefriksjonen.
 
-\textit{Her skriver du et sammendrag av rapporten. Sammendraget skal være veldig kort
-men må inneholde svaret på tre spørsmål: 1. Hva gjorde du (hva målte du)? 2. Hvordan 
-gjorde du det (hvilken metode)? 3. Hva fant du (resultat)?}
 \end{abstract}
 
 \maketitle % Denne kommanoden skriver ut dokumentinformasjonen, overskrift og sammendrag.
@@ -135,29 +134,24 @@ Man løser da
 		u_{i+1}    & = u_i + f(\phi_i, u_i) \Delta {t} 
 	\end{align}
 	for en valgt \(\Delta t\) og med startverdiene \(\phi_0\) og \(u_0 = \dot{\phi_0}\)
-\end{subequations}
+\end{subequations}.
 
-Da Eulers metode ofte fører til systematisk avvik, er det bedre å bruke Crank-Nicholson-metoden. (ref her?)
+Da Eulers metode ofte fører til systematisk avvik er det bedre å bruke Crank-Nicholson-metoden, som man kan finne i labheftet \cite{Falch}.
 
-\begin{figure}[] 
-% Alternativene inne i klammene angir hvilke av følgende plasseringer du vil tillate:
-% h = here, t = top, b = bottom, p = separat, ! = forsøk å overstyre preferansene til LaTeX.
-% (Preferansene til LaTeX gjør noen ganger at figurer ikke havner der du selv mener de passer best...).
-  \begin{center}
-      \includegraphics[width=0.4\textwidth]{drawing2}  % Putter inn fila pendel.pdf
-%   Hvis du angir bare enten width eller height, beholdes originalfigurens proporsjoner. (Dette anbefales.)
-% 	Her har vi brukt width=0.3\textwidth for å angi figurbredde som en andel av den delen av arkbredden som inneholder tekst.
-  \end{center}
-  \caption{Skisse av system.}
-  \label{Fig System} % Som med ligningen, er dette navnet vi refererer til.
+\begin{figure}[h] 
+    \begin{center}
+        \includegraphics[width=0.4\textwidth]{drawing2}
+    \end{center}
+    \caption{Skisse av system.}
+    \label{Fig System}
 \end{figure}
 
 \begin{figure}[h] 
-	\begin{center}
-		\includegraphics[width=0.4\textwidth]{skisse}
-	\end{center}
-	\caption{Skisse av oppsett.}
-	\label{Fig Oppsett} % Som med ligningen, er dette navnet vi refererer til.
+    \begin{center}
+        \includegraphics[width=0.4\textwidth]{skisse}
+    \end{center}
+    \caption{Skisse av oppsett.}
+    \label{Fig Oppsett}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -167,8 +161,8 @@ Da Eulers metode ofte fører til systematisk avvik, er det bedre å bruke Crank-
 	\item Kvartsirkel i stål (\(R = 46 \enhet{cm}\))
 	\item Tre ulike sylindre:
 	\\ Sylinder 1 - massiv plast
-	\\ Sylinder 2 - liten metall solid 
-	\\ Sylinder 3 - liten metall hul
+	\\ Sylinder 2 - massiv metall 
+	\\ Sylinder 3 - hul metall
 	\item Kamera med tripod Panasonic DMC-FZ-200
 	\item Videoanalyseprogrammet Tracker
 	\item Meterstav, skyvelær, vekt
@@ -204,25 +198,25 @@ I tillegg til analyse av de eksperimentelle dataene blir også problemet løst b
 \end{table}
 
 
-\begin{figure}[h!] 
+\begin{figure}[p] 
 	\begin{center}
         	\includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/combined-analytic/massiv_metall-step_euler.png}
         	\includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/step_euler-2b-small_dt/massiv_metall-step_euler-plot.png}
         \end{center}
-	\caption{Bruk av Eulers metode. Henholdsvis \(\Delta t = 0.01\) og \(\Delta t = 10^{-6}\)}
+	\caption{Bruk av Eulers metode. Henholdsvis \(\Delta t = 0.01\) og \(\Delta t = 10^{-6}\).}
 	\label{Fig step-Euler} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
-\begin{figure}[h!] 
+\begin{figure}[p] 
 	\begin{center}
 		\includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/combined-analytic/massiv_metall-stepCN.png}
   
  \end{center}
-	\caption{CN og analytic}
+	\caption{CN-metoden og den analytiske løsningen med \(\delta = 0.04\) og \(\beta \text{ og } \phi_R = 0\). Disse sammenfaller fullstendig.}
 	\label{Fig CN} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
-\begin{figure}[h!] 
+\begin{figure}[p] 
 	\begin{center}
             \includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/Justert/Massiv metall/massiv_metall-stepCN.png}
 		\includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/Justert/Massiv plast/massiv_plast-stepCN copy.png}
@@ -231,53 +225,36 @@ I tillegg til analyse av de eksperimentelle dataene blir også problemet løst b
 	\label{Fig tweaking} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
-\begin{figure}[h!] 
+\begin{figure}[p] 
 	\begin{center}
             \includegraphics[width=0.45\textwidth]{Plots/comparison_d_b_r.png}
     \end{center}
-	\caption{Sammenligning av påvirkning til \(\phi_R\), \(\beta\) og \(\delta\) som funksjon av \(\dot{\phi}\).}
+	\caption{Sammenligning av påvirkning til \(\phi_R\), \(\beta\) og \(\delta\) som funksjon av \(\dot{\phi}\). Ser på tidspunkt med maksimal rullemotstand når \(\phi = 0\). Det er bare rullefriksjonsleddet som avhenger av \(\phi\) (se \eqref{ODE}).}
 	\label{Fig comparison} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
 Figur \ref{Fig step-Euler} viser implementering av Eulers metode på måle\-serien til Sylinder 1. Her er det valgt \(\Delta t = 0.01\) og \(\Delta t = 10^{-6}\). 
-Crank-Nicholson-metoden gir fullstendig sammenfallende løsning som den analytiske løsningen av \eqref{ODE}. Se figur \ref{Fig CN}
-(plotting)
+Crank-Nicholson-metoden gir fullstendig sammenfallende løsning som den analytiske løsningen av \eqref{ODE}. Se figur \ref{Fig CN}.
 
 Eksperimentering av ulike verdier for \(\phi_R\), \(\delta\) og \(\beta\) gir figur \ref{Fig tweaking} som beste resultat. Her er \(\delta = 0.014\), \(\phi_R = 0.0002\) og \(\beta = 0.080\) hos massiv metall og \(\delta = 0.009\), \(\phi_R = 0.0006\) og \(\beta = 0.090\) hos massiv plast.
+\par
+Brukte videre \eqref{ODE} for å plotte hvordan de ulike dempeleddene i differensialligningen varierer med \(\dot{\phi}\) (se figur \ref{Fig comparison}).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Diskusjon}
-\textbf{Oppgave 3 (Diskusjon)}
-Ved hjelp av de numeriske metodene dere utviklet i oppgave 2 kan dere nå sammenligne nume
-riske og eksperimentelle resultater. Selv om størrelsene \(\phi_R\), \(\beta\) og \(\delta\) er ukjente størrelser (som er
-svært vanskelige å måle), kan de likevel anslås ved å bestemme hvilke verdier for \(\phi_R\), \(\beta\) og \(\delta\) som
-gir best samsvar mellom numeriske og eksperimentelle resultater.
-\\\textit{3a)} Bruk CN-metoden til å eksperimentere med forskjellige verdier for \(\phi_R\), \(\beta\) og \(\delta\). Prøv (på
-øyemål) å finne parametre som gjør at de eksperimentelle målingene samsvarer best mulig med
-de numeriske resultatene. Oppgi hvilke verdier dere har funnet, og forklar hvilke krefter som
-bidrar mest til å bremse sylinderen.
-\\\textit{3b)} De forskjellige dempingsmekanismene avhenger alle av \(v\) (merk at \(l\dot{\phi} = v\)), men ikke på
-samme måte. Under hvilke deler av bevegelsen opplever sylinderen mest/minst bremsing fra
-kreftene dere har anslått som de viktigste?
-\\\textit{3c)} Dersom dere har to måleserier for to forskjellige sylindre, sammenlign verdiene dere anslår
-i 3a) for begge måleseriene. Hva kan være en fysisk forklaring på det dere observerer? Hvis dere
-kun har én måleserie, kan dere spekulere i hvordan dynamikken ville endret seg om dere endret
-noe ved sylinderen (masse, radius, massefordeling etc.).
-\\Må også diskutere feilkilder. kanskje: startfart, evt. usikkerhetsberegninger.
+Basert på resultatene fra figur \ref{Fig comparison} kan en observere at når \(\dot{\phi}\) er null, som inntreffer når sylinderen er på sitt høyeste punkt i banen, er det kun rullefriksjonen som har en effekt. Etterhvert som sylinderen bygger opp fart derimot, øker de to andre friksjonskreftene raskt, og overgår rullefriksjonen relativt fort. Av disse igjen er det \(f_s\) som stort sett får den høyeste verdien i intervallet som \(\dot{\phi}\) holder seg innenfor i forsøket. Luftmotstanden blir ikke veldig stor før sylinderen har kommet opp i fart, noe som ikke skjer i særlig stor grad i det gjeldende forsøket. Det medfører at det mesteparten av tiden er friksjon fra andre fysiske prosesser, og luftmotstand, som dominerer nedbremsingen, og ikke rullefriksjonen.
+\par
+Det ble gjort målinger på tre ulike sylindre, men bare massiv metall (sylinder 2) og massiv plast (sylinder 1) ble analysert grunnet dårlig videokvalitet og måleserier hos sylinder 3 (hul metall). Dette skyldes trolig konverteringsfeil og/eller feil instillinger på kamera. Anslåtte verdier av \(\delta\), \(\phi_R\) og \(\beta\) kan tolkes dit hen at sylinderne er relativt jevne, slik at rullefriksjonen bidrar relativt lite til dempingen. Den dempende effekten til rullefriksjonen har opprinnelse i deformasjon av materialene som er i kontakt med hverandre. Det kan tenkes at plastsylinderen vil være mer tilbøyelig for deformasjon i kontakt med overflaten til banen enn metallsylinderen.
+\par
+Angående usikkerhet er det en del knyttet til målingene. Det vil selvsagt være måleusikkerhet til alle de målte større\-lsene, men de fleste av dem er neglisjerbare i forhold til noen av de større kildene. Vi vet blant annet at kameraet var posisjonert litt for langt til den ene siden, noe som førte til at alle x-verdiene våre, og dermed også \(\phi\)-verdiene våre, ble forskjøvet, som igjen førte til litt utfordringer med å tilpasse parameterene til de eksperimentelle dataene. Dette ble også forsterket av at noen 
+av filmene ble litt trimmet i overføringen fra kamera til datamaskin. Tracker fikk dermed problemer med å følge sylinderene på grunn av uskarpheter i filmen. Dette har ført til litt for unøyaktige datasett, og hull i dataene. Det vil nok også ha virket inn på analysen og skillet mellom de numeriske og de eksperimentelle dataene. I tillegg ble også tilpasningen gjort på øyemål, noe som åpenbart blir gjenspeilet i resultatene.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Konklusjon}
-\textit{
-Konklusjonen er rapportens viktigste del. 
-I konklusjonen legger du frem ditt egentlige faglige bidrag. 
-Det er som regel formidlingen av dette bidraget som er hovedgrunnen til at du skriver rapporten. 
-Konklusjonskapitlet bør ikke skrives før du har tenkt grundig over resultatene fra dine egne målinger 
-og sammenlignbare målinger gjort av andre i lys av den teori du har valgt å tolke resultatene innenfor.
-En god konklusjon er kort og presis, og presenterer kun hovedresultatet og konklusjonen fra diskusjonen. 
-Eventuelt fremtidig arbeid kan også nevnes her. 
-}
-
+Forsøket har vist at rullefriksjon sammenlignet med luftmotstand og andre dempekrefter er relativt liten for en sylinder i bunnen av en sirkelformet bane. 
+Modellen som ble brukt viser også at luftmotstanden er relativt liten for liten vinkelfart. Usikkerheter i målinger, numeriske tilpassninger av kurven, samt til dels mindre gode filmer gjorde at tallverdiene for dempekreftene med liten sikkerhet kan slås fast.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Her kommer referanselisten. 
