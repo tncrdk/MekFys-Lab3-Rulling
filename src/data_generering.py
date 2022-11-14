@@ -119,3 +119,24 @@ def numerical_data_generation() -> list[tuple[np.ndarray, np.ndarray, np.ndarray
 
 if __name__ == "__main__":
     numerical_data_generation()
+
+
+
+
+
+
+
+def foo():
+    return
+
+
+
+
+
+
+
+
+
+
+
+print("Hello")
