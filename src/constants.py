@@ -7,7 +7,7 @@ dR: float = 0.1
 g = 981
 dt = 0.01
 
-delta, phi_R, beta = (0.02647991e00, 0.90958430e-03, -1.30967627e-02)
+delta, phi_R, beta = (0.014, 0.0002, 0.080)
 
 
 @dataclass
