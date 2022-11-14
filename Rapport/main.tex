@@ -100,6 +100,7 @@ og bruke ligningen for \(f_R\) kommer man frem til følgende uttrykk:
 Her er størrelsene \(\delta\), \(\beta\) og \(\phi_R\) skalerte versjoner av 
 \(\tilde{\delta}\), \(\tilde{\beta}\) og \(d\), der \(d\) er armen til normalkraften (se figur \ref{Fig System})
 
+
 Å løse differensialligninger eksakt vil i de fleste tilfeller være svært vanskelig eller umulig.
 Likevel kan man løse \eqref{ODE} i noen grensetilfeller. Ved å bare se på \(\phi << 1\) vil man kunne
 bruke approksimasjonene 
@@ -146,6 +147,14 @@ Da Eulers metode ofte fører til systematisk avvik, er det bedre å bruke Crank-
   \label{Fig System} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
+\begin{figure}[h] 
+	\begin{center}
+		\includegraphics[width=0.4\textwidth]{skisse}
+	\end{center}
+	\caption{Skisse av oppsett.}
+	\label{Fig Oppsett} % Som med ligningen, er dette navnet vi refererer til.
+\end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Metode}
@@ -166,20 +175,12 @@ Først gjøres det et testopptak for å passe på at lys- og fokusinnstillinger 
 Deretter blir sylinderen satt i sirkelbanen. (Se figur \ref{Fig Oppsett})
 Ved å bruke autotracker-funksjonen i Tracker får man deretter ut måleserier med posisjonsdata.
 Videre blir posisjonsdataene analysert og plottet med Python. 
-I tillegg til analyse av de eksperimentelle dataene blir også problemet løst både analytisk med en forenklet modell og numerisk. Løsningene blir dernest også plottet i python sammen med de eksperimentelle dataene. Dette for å etterpå kunne finne tilnærmede verdier for $\delta, \phi_R,$ og $\beta$, som gir best overenskomst med de eksperimentelle dataene.
-
-\begin{figure}[] 
-	\begin{center}
-		\includegraphics[width=0.4\textwidth]{skisse}
-	\end{center}
-	\caption{Skisse av oppsett.}
-	\label{Fig Oppsett} % Som med ligningen, er dette navnet vi refererer til.
-\end{figure}
+I tillegg til analyse av de eksperimentelle dataene blir også problemet løst både analytisk med en forenklet modell og numerisk. Løsningene blir dernest også plottet i python sammen med de eksperimentelle dataene. Dette for å etterpå kunne finne tilnærmede verdier for $\delta$, $\phi_R$ og $\beta$, som gir best overenskomst med de eksperimentelle dataene.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Resultat}
 
-\begin{table}[htb]
+\begin{table}[h]
 	\begin{center}
 		\caption{Målinger av de ulike sylindrene.}
 		\label{MinLilleTabell}	% Merkelappen vi vil referere til.
@@ -199,39 +200,38 @@ I tillegg til analyse av de eksperimentelle dataene blir også problemet løst b
 \end{table}
 
 
-\begin{figure}[] 
+\begin{figure}[h] 
 	\begin{center}
-        	\includegraphics[width=0.5\textwidth]{Plots/Saved-Plots/combined-analytic/massiv_metall-step_euler.png}
-        	\includegraphics[width=0.5\textwidth]{Plots/Saved-Plots/step_euler-2b-small_dt/massiv_metall-step_euler-plot.png}
+        	\includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/combined-analytic/massiv_metall-step_euler.png}
+        	\includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/step_euler-2b-small_dt/massiv_metall-step_euler-plot.png}
         \end{center}
 	\caption{Bruk av Eulers metode. Henholdsvis \(\Delta t = 0.01\) og \(\Delta t = 10^{-6}\)}
 	\label{Fig step-Euler} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
-\begin{figure}[] 
+\begin{figure}[htb] 
 	\begin{center}
-		\includegraphics[width=0.5\textwidth]{Plots/Saved-Plots/combined-analytic/massiv_metall-stepCN.png}
+		\includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/combined-analytic/massiv_metall-stepCN.png}
   
  \end{center}
 	\caption{CN og analytic}
 	\label{Fig CN} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
-\begin{figure}[] 
+\begin{figure}[htb] 
 	\begin{center}
-		\includegraphics[width=0.5\textwidth]{Plots/Saved-Plots/Tweaking/Massiv metall/massiv_metall-stepCN.png}
-  
+		\includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/Tweaking/Massiv metall/massiv_metall-stepCN.png}
+            \includegraphics[width=0.45\textwidth]{Plots/Saved-Plots/Tweaking/Massiv plast/massiv_plast-stepCN copy.png}
  \end{center}
-	\caption{Justering av \(\phi_R\), \(\beta\) og \(\delta\)}
+	\caption{Justering av \(\phi_R\), \(\beta\) og \(\delta\) hos helholdsvis massiv metall og massiv plast.}
 	\label{Fig tweaking} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
-Figur \ref{Fig step-Euler} viser implementering av Eulers metode på måleserien til Sylinder 1. Her er det valgt \(\Delta t = 0.01\) og \(\Delta t = 10^{-6}\). 
+Figur \ref{Fig step-Euler} viser implementering av Eulers metode på måle\-serien til Sylinder 1. Her er det valgt \(\Delta t = 0.01\) og \(\Delta t = 10^{-6}\). 
 Crank-Nicholson-metoden gir fullstendig sammenfallende løsning som den analytiske løsningen av \eqref{ODE}. Se figur \ref{Fig CN}
 (plotting)
 
-Eksperimentering av ulike verdier for \(\phi_R\), \(\delta\) og \(\beta\) gir figur \ref{Fig tweaking} som beste resultat. Her er \(\delta = 0.014\), \(\phi_R = 0.0002\) og \(\beta = 0.080\)
-
+Eksperimentering av ulike verdier for \(\phi_R\), \(\delta\) og \(\beta\) gir figur \ref{Fig tweaking} som beste resultat. Her er \(\delta = 0.014\), \(\phi_R = 0.0002\) og \(\beta = 0.080\) hos massiv metall og \(\delta = 0.009\), \(\phi_R = 0.0006\) og \(\beta = 0.090\) hos massiv plast.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Diskusjon}
