@@ -220,28 +220,22 @@ I tillegg til analyse av de eksperimentelle dataene blir også problemet løst b
 
 \begin{figure}[] 
 	\begin{center}
-		\includegraphics[width=0.5\textwidth]{Plots/Saved-Plots/Tweaking/}
+		\includegraphics[width=0.5\textwidth]{Plots/Saved-Plots/Tweaking/Massiv metall/massiv_metall-stepCN.png}
   
  \end{center}
-	\caption{massiv\_metall-stepCN.png}
-	\label{Fig massiv_metall} % Som med ligningen, er dette navnet vi refererer til.
+	\caption{Justering av \(\phi_R\), \(\beta\) og \(\delta\)}
+	\label{Fig tweaking} % Som med ligningen, er dette navnet vi refererer til.
 \end{figure}
 
 Figur \ref{Fig step-Euler} viser implementering av Eulers metode på måleserien til Sylinder 1. Her er det valgt \(\Delta t = 0.01\) og \(\Delta t = 10^{-6}\). 
 Crank-Nicholson-metoden gir fullstendig sammenfallende løsning som den analytiske løsningen av \eqref{ODE}. Se figur \ref{Fig CN}
 (plotting)
 
-Eksperimentering av ulike verdier for \(\phi_R\), \(\delta\) og \(\beta\)
+Eksperimentering av ulike verdier for \(\phi_R\), \(\delta\) og \(\beta\) gir figur \ref{Fig tweaking} som beste resultat. Her er \(\delta = 0.014\), \(\phi_R = 0.0002\) og \(\beta = 0.080\)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Diskusjon}
-\textit{Her er det konklusjonen av resultatene dine som skal diskuteres, og
-for å kunne diskutere dette må du sette dem inn i en større
-sammenheng. Dette gjør du ved å relatere resultatene dine til
-tidligere utførte undersøkelser på samme område, og ved å forutsi de
-konsekvenser som resultatene av din undersøkelse medfører.}
-
 \textbf{Oppgave 3 (Diskusjon)}
 Ved hjelp av de numeriske metodene dere utviklet i oppgave 2 kan dere nå sammenligne nume
 riske og eksperimentelle resultater. Selv om størrelsene \(\phi_R\), \(\beta\) og \(\delta\) er ukjente størrelser (som er
